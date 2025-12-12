@@ -46,7 +46,25 @@ GPT4o_MODEL_LIST = [
     "gpt-4o",
     "gpt-4o-2024-05-13",
     "gpt-4o-2024-08-06",
+    "gpt-4o-2024-11-20",
     "chatgpt-4o-latest",
+]
+
+O1_MODEL_LIST = [
+    "o1",
+    "o1-2024-12-17",
+    "o1-preview",
+    "o1-preview-2024-09-12",
+]
+
+O1MINI_MODEL_LIST = [
+    "o1-mini",
+    "o1-mini-2024-09-12",
+]
+
+O3MINI_MODEL_LIST = [
+    "o3-mini",
+    "o3-mini-2025-01-31",
 ]
 
 
@@ -419,6 +437,45 @@ class ChatGPTAPI(Base):
                 i["id"] for i in self.openai_client.models.list().model_dump()["data"]
             ]
             model_list = list(set(my_model_list) & set(GPT4o_MODEL_LIST))
+            print(f"Using model list {model_list}")
+            self.model_list = cycle(model_list)
+
+    def set_o1_models(self):
+        if self.deployment_id:
+            self.model_list = cycle(["o1"])
+        else:
+            my_model_list = [
+                i["id"] for i in self.openai_client.models.list().model_dump()["data"]
+            ]
+            model_list = list(set(my_model_list) & set(O1_MODEL_LIST))
+            if not model_list:
+                model_list = ["o1"]
+            print(f"Using model list {model_list}")
+            self.model_list = cycle(model_list)
+
+    def set_o1mini_models(self):
+        if self.deployment_id:
+            self.model_list = cycle(["o1-mini"])
+        else:
+            my_model_list = [
+                i["id"] for i in self.openai_client.models.list().model_dump()["data"]
+            ]
+            model_list = list(set(my_model_list) & set(O1MINI_MODEL_LIST))
+            if not model_list:
+                model_list = ["o1-mini"]
+            print(f"Using model list {model_list}")
+            self.model_list = cycle(model_list)
+
+    def set_o3mini_models(self):
+        if self.deployment_id:
+            self.model_list = cycle(["o3-mini"])
+        else:
+            my_model_list = [
+                i["id"] for i in self.openai_client.models.list().model_dump()["data"]
+            ]
+            model_list = list(set(my_model_list) & set(O3MINI_MODEL_LIST))
+            if not model_list:
+                model_list = ["o3-mini"]
             print(f"Using model list {model_list}")
             self.model_list = cycle(model_list)
 
