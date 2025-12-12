@@ -46,7 +46,51 @@ GPT4o_MODEL_LIST = [
     "gpt-4o",
     "gpt-4o-2024-05-13",
     "gpt-4o-2024-08-06",
+    "gpt-4o-2024-11-20",
     "chatgpt-4o-latest",
+]
+
+O1_MODEL_LIST = [
+    "o1",
+    "o1-2024-12-17",
+    "o1-preview",
+    "o1-preview-2024-09-12",
+]
+
+O1MINI_MODEL_LIST = [
+    "o1-mini",
+    "o1-mini-2024-09-12",
+]
+
+O3MINI_MODEL_LIST = [
+    "o3-mini",
+    "o3-mini-2025-01-31",
+]
+
+GPT5_MODEL_LIST = [
+    "gpt-5",
+    "gpt-5-2025-08-07",
+]
+
+GPT5MINI_MODEL_LIST = [
+    "gpt-5-mini",
+]
+
+GPT5PRO_MODEL_LIST = [
+    "gpt-5-pro",
+    "gpt-5-pro-2025-10-06",
+]
+
+GPT51_MODEL_LIST = [
+    "gpt-5.1",
+    "gpt-5.1-2025-11-13",
+    "gpt-5.1-chat-latest",
+]
+
+GPT52_MODEL_LIST = [
+    "gpt-5.2",
+    "gpt-5.2-chat-latest",
+    "gpt-5.2-pro",
 ]
 
 
@@ -419,6 +463,110 @@ class ChatGPTAPI(Base):
                 i["id"] for i in self.openai_client.models.list().model_dump()["data"]
             ]
             model_list = list(set(my_model_list) & set(GPT4o_MODEL_LIST))
+            print(f"Using model list {model_list}")
+            self.model_list = cycle(model_list)
+
+    def set_o1_models(self):
+        if self.deployment_id:
+            self.model_list = cycle(["o1"])
+        else:
+            my_model_list = [
+                i["id"] for i in self.openai_client.models.list().model_dump()["data"]
+            ]
+            model_list = list(set(my_model_list) & set(O1_MODEL_LIST))
+            if not model_list:
+                model_list = ["o1"]
+            print(f"Using model list {model_list}")
+            self.model_list = cycle(model_list)
+
+    def set_o1mini_models(self):
+        if self.deployment_id:
+            self.model_list = cycle(["o1-mini"])
+        else:
+            my_model_list = [
+                i["id"] for i in self.openai_client.models.list().model_dump()["data"]
+            ]
+            model_list = list(set(my_model_list) & set(O1MINI_MODEL_LIST))
+            if not model_list:
+                model_list = ["o1-mini"]
+            print(f"Using model list {model_list}")
+            self.model_list = cycle(model_list)
+
+    def set_o3mini_models(self):
+        if self.deployment_id:
+            self.model_list = cycle(["o3-mini"])
+        else:
+            my_model_list = [
+                i["id"] for i in self.openai_client.models.list().model_dump()["data"]
+            ]
+            model_list = list(set(my_model_list) & set(O3MINI_MODEL_LIST))
+            if not model_list:
+                model_list = ["o3-mini"]
+            print(f"Using model list {model_list}")
+            self.model_list = cycle(model_list)
+
+    def set_gpt5_models(self):
+        if self.deployment_id:
+            self.model_list = cycle(["gpt-5"])
+        else:
+            my_model_list = [
+                i["id"] for i in self.openai_client.models.list().model_dump()["data"]
+            ]
+            model_list = list(set(my_model_list) & set(GPT5_MODEL_LIST))
+            if not model_list:
+                model_list = ["gpt-5"]
+            print(f"Using model list {model_list}")
+            self.model_list = cycle(model_list)
+
+    def set_gpt5mini_models(self):
+        if self.deployment_id:
+            self.model_list = cycle(["gpt-5-mini"])
+        else:
+            my_model_list = [
+                i["id"] for i in self.openai_client.models.list().model_dump()["data"]
+            ]
+            model_list = list(set(my_model_list) & set(GPT5MINI_MODEL_LIST))
+            if not model_list:
+                model_list = ["gpt-5-mini"]
+            print(f"Using model list {model_list}")
+            self.model_list = cycle(model_list)
+
+    def set_gpt5pro_models(self):
+        if self.deployment_id:
+            self.model_list = cycle(["gpt-5-pro"])
+        else:
+            my_model_list = [
+                i["id"] for i in self.openai_client.models.list().model_dump()["data"]
+            ]
+            model_list = list(set(my_model_list) & set(GPT5PRO_MODEL_LIST))
+            if not model_list:
+                model_list = ["gpt-5-pro"]
+            print(f"Using model list {model_list}")
+            self.model_list = cycle(model_list)
+
+    def set_gpt51_models(self):
+        if self.deployment_id:
+            self.model_list = cycle(["gpt-5.1"])
+        else:
+            my_model_list = [
+                i["id"] for i in self.openai_client.models.list().model_dump()["data"]
+            ]
+            model_list = list(set(my_model_list) & set(GPT51_MODEL_LIST))
+            if not model_list:
+                model_list = ["gpt-5.1"]
+            print(f"Using model list {model_list}")
+            self.model_list = cycle(model_list)
+
+    def set_gpt52_models(self):
+        if self.deployment_id:
+            self.model_list = cycle(["gpt-5.2"])
+        else:
+            my_model_list = [
+                i["id"] for i in self.openai_client.models.list().model_dump()["data"]
+            ]
+            model_list = list(set(my_model_list) & set(GPT52_MODEL_LIST))
+            if not model_list:
+                model_list = ["gpt-5.2"]
             print(f"Using model list {model_list}")
             self.model_list = cycle(model_list)
 

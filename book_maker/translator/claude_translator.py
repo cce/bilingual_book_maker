@@ -22,7 +22,7 @@ class Claude(Base):
         super().__init__(key, language)
         self.api_url = api_base or "https://api.anthropic.com"
         self.client = Anthropic(base_url=api_base, api_key=key, timeout=20)
-        self.model = "claude-3-5-sonnet-20241022"  # default it for now
+        self.model = "claude-sonnet-4-20250514"  # default to Claude Sonnet 4
         self.language = language
         self.prompt_template = (
             prompt_template

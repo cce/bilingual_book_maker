@@ -348,7 +348,7 @@ So you are close to reaching the limit. You have to choose your own value, there
     translate_model = MODEL_DICT.get(options.model)
     assert translate_model is not None, "unsupported model"
     API_KEY = ""
-    if options.model in ["openai", "chatgptapi", "gpt4", "gpt4omini", "gpt4o"]:
+    if options.model in ["openai", "chatgptapi", "gpt4", "gpt4omini", "gpt4o", "o1", "o1mini", "o3mini", "gpt5", "gpt5mini", "gpt5pro", "gpt51", "gpt52"]:
         if OPENAI_API_KEY := (
             options.openai_key
             or env.get(
@@ -470,7 +470,15 @@ So you are close to reaching the limit. You have to choose your own value, there
             "gpt4",
             "gpt4omini",
             "gpt4o",
-        ], "only support chatgptapi for deployment_id"
+            "o1",
+            "o1mini",
+            "o3mini",
+            "gpt5",
+            "gpt5mini",
+            "gpt5pro",
+            "gpt51",
+            "gpt52",
+        ], "only support chatgptapi/gpt4/gpt4o/o1/gpt5 for deployment_id"
         if not options.api_base:
             raise ValueError("`api_base` must be provided when using `deployment_id`")
         e.translate_model.set_deployment_id(options.deployment_id)
@@ -494,6 +502,22 @@ So you are close to reaching the limit. You have to choose your own value, there
         e.translate_model.set_gpt4omini_models()
     if options.model == "gpt4o":
         e.translate_model.set_gpt4o_models()
+    if options.model == "o1":
+        e.translate_model.set_o1_models()
+    if options.model == "o1mini":
+        e.translate_model.set_o1mini_models()
+    if options.model == "o3mini":
+        e.translate_model.set_o3mini_models()
+    if options.model == "gpt5":
+        e.translate_model.set_gpt5_models()
+    if options.model == "gpt5mini":
+        e.translate_model.set_gpt5mini_models()
+    if options.model == "gpt5pro":
+        e.translate_model.set_gpt5pro_models()
+    if options.model == "gpt51":
+        e.translate_model.set_gpt51_models()
+    if options.model == "gpt52":
+        e.translate_model.set_gpt52_models()
     if options.model.startswith("claude-"):
         e.translate_model.set_claude_model(options.model)
     if options.block_size > 0:
